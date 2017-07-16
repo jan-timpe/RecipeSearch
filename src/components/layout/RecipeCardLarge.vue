@@ -24,8 +24,12 @@
       </div>
 
       <div class="cell columns controls">
-         <a class="control cell">Add</a>
-         <a class="control cell">Visit</a>
+         <a class="control cell" 
+            @click="saveRecipe"
+         >
+         Add
+         </a>
+         <a class="control cell" v-bind:href="this.recipe.url" target="_blank">Visit</a>
       </div>
 
    </div>
@@ -34,7 +38,15 @@
 <script>
 export default {
    name: 'RecipeCardLarge',
-   props: ['recipe']
+   props: ['recipe'],
+
+   methods: {
+      saveRecipe() {
+         this.$store.dispatch('addRecipeToList', {
+            recipe: this.recipe
+         })
+      }
+   }
 }
 </script>
 
