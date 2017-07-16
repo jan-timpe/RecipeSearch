@@ -6,7 +6,7 @@ export const HTTP = axios.create({
       app_id: 'e8149f6c',
       app_key: '8237364c4dc4573c8a7da14f8f1e10c0',
       from: 0,
-      to: 50
+      to: 10
    }
 })
 
