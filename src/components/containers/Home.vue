@@ -11,6 +11,18 @@
 
       <br/><br/>
 
+      <recipe-card v-for="item in this.recipes"
+         :key="item.recipe.uri"
+         :title="item.recipe.label"
+         :healthLabels="item.recipe.healthLabels"
+         :dietLabels="item.recipe.dietLabels"
+         :yield="item.recipe.yield"
+         :calories="item.recipe.calories"
+         :url="item.recipe.url"
+         :image="item.recipe.image"
+      >
+      </recipe-card>
+
       <p v-for="item in this.recipes" :key="item.recipe.uri">
          {{ item.recipe.label }}
       </p>
@@ -18,13 +30,15 @@
 </template>
 
 <script>
-import Navigation from '@/components/layout/navigation'
 import api from '@/api/recipes'
+import Navigation from '@/components/layout/navigation'
+import RecipeCard from '@/components/layout/RecipeCard'
 
 export default {
    name: 'home',
    components: {
-      Navigation
+      Navigation,
+      RecipeCard
    }, 
 
    data: function() {
