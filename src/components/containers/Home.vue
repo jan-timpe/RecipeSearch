@@ -120,18 +120,3 @@ export default {
    }
 }
 </script>
-
-<style>
-.flex-wrapper {
-   display: flex;
-   display: -webkit-flex;
-   display: -moz-flex;
-   display: -o-flex;
-   flex-wrap: nowrap;
-   flex-direction: row;
-}
-.flex-wrapper .added-recipes {
-   max-width: 400px;
-   min-width: 180px;
-}
-</style>
