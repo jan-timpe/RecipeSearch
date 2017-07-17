@@ -12,7 +12,29 @@ export default {
    name: 'app',
    components: {
       Navigation
+   },
+
+   localStorage: {
+      recipes: {
+         type: Object
+      }
+   },
+
+   created: function() {
+      // this.$localStorage.remove('recipes')
+      let recipes = this.$localStorage.get('recipes')
+      console.log(recipes)
+      if(recipes && recipes.length > 0) {
+         this.$store.dispatch('setRecipeList', {
+            recipeList: recipes
+         })
+      }
+   },
+
+   beforeDestroy: function() {
+      this.$localStorage.set('recipes', this.addedRecipes)
    }
+   
 }
 </script>
 
