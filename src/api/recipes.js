@@ -11,8 +11,8 @@ export const HTTP = axios.create({
 })
 
 export default {
-   searchRecipes(query, onSuccess, onFailure) {
-      HTTP.get('/search?q='+query)
+   searchRecipes(query, healthLabel, onSuccess, onFailure) {
+      HTTP.get('/search?q='+query+'&health='+healthLabel)
       .then(response => {
          onSuccess(response.data)
       })

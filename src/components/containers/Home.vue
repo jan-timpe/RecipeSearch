@@ -35,8 +35,29 @@
 
                <div class="column is-two-thirds">
 
-                  <form v-on:submit.prevent="searchRecipes(searchTerm)">
+                  <form v-on:submit.prevent="searchRecipes(searchTerm, healthLabel)">
                      <div class="field has-addons">
+                        <p class="control">
+                           <span class="select">
+                              <select v-model="healthLabel">
+                                 <option value="" disabled selected>Health options</option>
+                                 <option value="vegan">vegan</option>
+                                 <option value="vegetarian">vegetarian</option>
+                                 <option value="paleo">paleo</option>
+                                 <option value="dairy-free">dairy-free</option>
+                                 <option value="gluten-free">gluten-free</option>
+                                 <option value="wheat-free">wheat-free</option>
+                                 <option value="fat-free">fat-free</option>
+                                 <option value="low-sugar">low-sugar</option>
+                                 <option value="egg-free">egg-free</option>
+                                 <option value="peanut-free">peanut-free</option>
+                                 <option value="nut-free">tree-nut-free</option>
+                                 <option value="soy-free">soy-free</option>
+                                 <option value="fish-free">fish-free</option>
+                                 <option value="shellfish-free">shellfish-free</option>
+                              </select>
+                           </span>
+                        </p>
                         <p class="control">
                            <input class="input" 
                               type="text" 
@@ -45,7 +66,7 @@
                            >
                         </p>
                         <p class="control">
-                           <input type="submit" class="button is-info" value="Search">
+                           <input type="submit" class="button is-primary" value="Search">
                         </p>
                      </div>
                   </form>
@@ -94,6 +115,7 @@ export default {
       return {
          recipes: [],
          searchTerm: '',
+         healthLabel: '',
          isLoading: false
       }
    }, 
@@ -105,10 +127,10 @@ export default {
    },
 
    methods: {
-      searchRecipes(terms) {
+      searchRecipes(terms, healthLabel) {
          this.isLoading = true
 
-         api.searchRecipes(terms, results => {
+         api.searchRecipes(terms, healthLabel, results => {
             this.recipes = results.hits
             this.isLoading = false
          },
