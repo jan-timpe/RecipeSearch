@@ -1,33 +1,88 @@
 <template>
    <div id="home">
       <navigation></navigation>
-      <h1>Home page</h1>
-      <p>Welcome home</p>
+      <section class="hero is-primary">
+         <div class="hero-body">
+            <div class="container">
+               <h1 class="title">
+                  Home page
+               </h1>
+               <h2 class="subtitle">
+                  Welcome home
+               </h2>
+            </div>
+         </div>
+      </section>
 
-      <br/><br/>
+      <section class="section">
+         <div class="container">
+            <h1 class="title">Start here</h1>
+            <h2 class="subtitle">
+               Use the search bar to look for recipes; when you find one you like, add it to your list!
+            </h2>
 
-      <input type="text" v-model="this.searchTerm">
-      <button @click="searchRecipes(this.searchTerm)">Search</button>
+            <div class="columns">
 
-      <br/><br/>
+               <div class="column is-one-third">
+                  <p>Your list</p>
+                  <recipe-card-small v-for="(item, index) in addedRecipes"
+                     :key="item.uri"
+                     :recipe="item"
+                     :index="index"
+                  >
+                  </recipe-card-small>
+               </div>
+
+               <div class="column is-two-thirds">
+
+                  <form v-on:submit.prevent="searchRecipes(this.searchTerm)">
+                     <div class="field has-addons">
+                        <p class="control">
+                           <input class="input" 
+                              type="text" 
+                              placeholder="Look for munchies"
+                              v-model="this.searchTerm"
+                           >
+                        </p>
+                        <p class="control">
+                           <input type="submit" class="button is-info" value="Search">
+                        </p>
+                     </div>
+                  </form>
+
+                  <br/>
+
+                  <div>
+
+                     <p v-if="this.recipes.length == 0 && !isLoading">
+                        No results
+                     </p>
+
+                     <a class="button is-static" v-bind:class="{ 'is-loading': isLoading }" v-if="isLoading">
+                        Loading...
+                     </a>
+                  
+
+                     <recipe-card-large v-for="item in this.recipes"
+                        :key="item.recipe.uri"
+                        :recipe="item.recipe"
+                     >
+                     </recipe-card-large>
+
+                  </div>
+
+               </div>
+            </div>
+         </div>
+      </section>
 
       <div class="flex-wrapper">
          <div class="added-recipes">
             <h2>Your list</h2>
-            <recipe-card-small v-for="(item, index) in addedRecipes"
-               :key="item.uri"
-               :recipe="item"
-               :index="index"
-            >
-            </recipe-card-small>
+            
          </div>
          <div class="searched-recipes">
             <h2>Search results</h2>
-            <recipe-card-large v-for="item in this.recipes"
-               :key="item.recipe.uri"
-               :recipe="item.recipe"
-            >
-            </recipe-card-large>
          </div>
       </div>
    </div>
@@ -51,7 +106,8 @@ export default {
    data: function() {
       return {
          recipes: [],
-         searchTerm: ''
+         searchTerm: '',
+         isLoading: false
       }
    }, 
 
@@ -63,11 +119,15 @@ export default {
 
    methods: {
       searchRecipes(terms) {
+         this.isLoading = true
+
          api.searchRecipes(terms, results => {
             this.recipes = results.hits
+            this.isLoading = false
          },
          error => {
             console.log(error)
+            this.isLoading = false
          })
       }
    }
