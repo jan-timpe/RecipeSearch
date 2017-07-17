@@ -37,7 +37,7 @@
          </div>
 
          <div class="media-right">
-            <a @click="this.saveRecipe" class="button is-white is-small">
+            <a @click="this.removeRecipe" class="button is-white is-small">
                <span class="icon is-small">
                   <i class="fa fa-close"></i>
                </span>
@@ -68,41 +68,3 @@ export default {
    }
 }
 </script>
-
-<style>
-.recipe-card-small, .columns {
-   display: flex;
-   display: -webkit-flex;
-   display: -moz-flex;
-   display: -o-flex;
-   flex-wrap: nowrap;
-   margin: 6px 0px;
-}
-.recipe-card-small {
-   flex-direction: row;
-}
-.recipe-card-small .columns {
-   flex-direction: column;
-}
-.recipe-card-small .info {
-   padding: 4px;
-   margin: 0px 4px;
-   width: 100%;
-}
-
-.recipe-card-small .photo {
-   max-width:80px;
-}
-.recipe-card-small .photo .recipe-image {
-   width: 100%;
-}
-
-.recipe-card-small .controls {
-   width: 60px;
-}
-.recipe-card-small .control {
-   display: block;
-   width: 100%;
-   line-height: 60px;
-}
-</style>

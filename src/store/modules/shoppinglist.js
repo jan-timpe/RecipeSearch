@@ -6,6 +6,14 @@ const getters = {
    addedRecipes: state => state.addedRecipes,
 
    shoppingList() {
+      var list = []
+      state.addedRecipes.forEach(function(recipe) {
+         recipe.ingredientLines.forEach(function(ingredient){
+            list.push(ingredient)
+         }, this)
+      }, this);
+      
+      return list.sort()
    }
 }
 

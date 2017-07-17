@@ -1,6 +1,6 @@
 <template>
    <div id="home">
-      <navigation></navigation>
+
       <section class="hero is-primary">
          <div class="hero-body">
             <div class="container">
@@ -35,13 +35,13 @@
 
                <div class="column is-two-thirds">
 
-                  <form v-on:submit.prevent="searchRecipes(this.searchTerm)">
+                  <form v-on:submit.prevent="searchRecipes(searchTerm)">
                      <div class="field has-addons">
                         <p class="control">
                            <input class="input" 
                               type="text" 
                               placeholder="Look for munchies"
-                              v-model="this.searchTerm"
+                              v-model="searchTerm"
                            >
                         </p>
                         <p class="control">
@@ -54,14 +54,12 @@
 
                   <div>
 
-                     <p v-if="this.recipes.length == 0 && !isLoading">
+                     <a class="button is-static" 
+                        v-if="this.recipes.length == 0 || isLoading"
+                        v-bind:class="{ 'is-loading': isLoading }"
+                     >
                         No results
-                     </p>
-
-                     <a class="button is-static" v-bind:class="{ 'is-loading': isLoading }" v-if="isLoading">
-                        Loading...
                      </a>
-                  
 
                      <recipe-card-large v-for="item in this.recipes"
                         :key="item.recipe.uri"
@@ -76,21 +74,11 @@
          </div>
       </section>
 
-      <div class="flex-wrapper">
-         <div class="added-recipes">
-            <h2>Your list</h2>
-            
-         </div>
-         <div class="searched-recipes">
-            <h2>Search results</h2>
-         </div>
-      </div>
    </div>
 </template>
 
 <script>
 import api from '@/api/recipes'
-import Navigation from '@/components/layout/navigation'
 import RecipeCardLarge from '@/components/layout/RecipeCardLarge'
 import RecipeCardSmall from '@/components/layout/RecipeCardSmall'
 import { mapGetters } from 'vuex'
@@ -98,7 +86,6 @@ import { mapGetters } from 'vuex'
 export default {
    name: 'home',
    components: {
-      Navigation,
       RecipeCardLarge,
       RecipeCardSmall
    }, 

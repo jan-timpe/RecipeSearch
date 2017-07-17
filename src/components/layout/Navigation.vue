@@ -1,12 +1,12 @@
 <template>
    <nav id="navbar" class="navbar">
       <div class="navbar-brand">
-         <a class="navbar-item">
+         <router-link to="/" class="navbar-item">
             Home
-         </a>
-         <a class="navbar-item">
+         </router-link>
+         <router-link to="/list" class="navbar-item">
             Shopping List
-         </a>
+         </router-link>
       </div>
    </nav>
 </template>
