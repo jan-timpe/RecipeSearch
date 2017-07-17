@@ -23,7 +23,6 @@ const getters = {
 
          for(var n in nutrients) {
             var nut = nutrients[n]
-            console.log(nut.label)
 
             if(nut.label in totalNutrients) {
                totalNutrients[nut.label].quantity += nut.quantity
@@ -37,7 +36,7 @@ const getters = {
             }
          }
       })
-      console.log(totalNutrients)
+
       return totalNutrients
    }
 }
