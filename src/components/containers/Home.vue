@@ -35,8 +35,21 @@
 
                <div class="column is-two-thirds">
 
-                  <form v-on:submit.prevent="searchRecipes(searchTerm, healthLabel)">
+                  <form v-on:submit.prevent="searchRecipes(searchTerm, healthLabel, dietLabel)">
                      <div class="field has-addons">
+                        <p class="control">
+                           <span class="select">
+                              <select v-model="dietLabel">
+                                 <option value="" disabled selected>Diet options</option>
+                                 <option value="balanced">balanced</option>
+                                 <option value="high-protein">high-protein</option>
+                                 <option value="high-fiber">high-fiber</option>
+                                 <option value="low-fat">low-fat</option>
+                                 <option value="low-carb">low-carb</option>
+                                 <option value="low-sodium">low-sodium</option>
+                              </select>
+                           </span>
+                        </p>
                         <p class="control">
                            <span class="select">
                               <select v-model="healthLabel">
@@ -116,6 +129,7 @@ export default {
          recipes: [],
          searchTerm: '',
          healthLabel: '',
+         dietLabel: '',
          isLoading: false
       }
    }, 
@@ -127,10 +141,10 @@ export default {
    },
 
    methods: {
-      searchRecipes(terms, healthLabel) {
+      searchRecipes(terms, healthLabel, dietLabel) {
          this.isLoading = true
 
-         api.searchRecipes(terms, healthLabel, results => {
+         api.searchRecipes(terms, healthLabel, dietLabel, results => {
             this.recipes = results.hits
             this.isLoading = false
          },
