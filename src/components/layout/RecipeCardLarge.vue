@@ -1,35 +1,38 @@
 <template>
-   <div class="recipe-card">
+   <div class="recipe-card-large">
 
       <div class="cell photo">
          <img v-bind:src="this.recipe.image"  class="recipe-image">
       </div>
 
-      <div class="cell columns info">
-         <div class="title cell">
-            <h3>{{ this.recipe.label }}</h3>
-         </div>
-         <div class="tags cell">
-            <span v-for="tag in this.recipe.healthLabels" 
-            :key="tag"
-            class="tag">
-               {{ tag }}
-            </span>
-            <span v-for="tag in this.recipe.dietLabels" 
-            :key="tag"
-            class="tag">
-               {{ tag }}
-            </span>
-         </div>
+      <div class="cell info">
+         <h3 class="title">{{ this.recipe.label }}</h3>
+
+         <span v-for="tag in this.recipe.healthLabels" 
+         :key="tag"
+         class="tag">
+            {{ tag }}
+         </span>
+
+         <span v-for="tag in this.recipe.dietLabels" 
+         :key="tag"
+         class="tag">
+            {{ tag }}
+         </span>
       </div>
 
       <div class="cell columns controls">
          <a class="control cell" 
             @click="saveRecipe"
          >
-         Add
+            Add
          </a>
-         <a class="control cell" v-bind:href="this.recipe.url" target="_blank">Visit</a>
+         <a class="control cell" 
+            v-bind:href="this.recipe.url" 
+            target="_blank"
+         >
+            Visit
+         </a>
       </div>
 
    </div>
@@ -51,7 +54,7 @@ export default {
 </script>
 
 <style>
-.recipe-card, .columns {
+.recipe-card-large, .columns {
    display: flex;
    display: -webkit-flex;
    display: -moz-flex;
@@ -59,29 +62,29 @@ export default {
    flex-wrap: nowrap;
    margin: 12px 0px;
 }
-.recipe-card {
+.recipe-card-large {
    flex-direction: row;
 }
-.columns {
+.recipe-card-large .columns {
    flex-direction: column;
 }
-.cell {
+.recipe-card-large .cell {
    flex: 1 1 auto;
 }
 
-.info {
+.recipe-card-large .info {
    padding: 4px;
    margin: 0px 4px;
    width: 100%;
 }
-.title {
+.recipe-card-large .title {
    max-height: 44px;
    font-size: 14pt;
 }
-.tags {
+.recipe-card-large .tags {
    padding: 6px;
 }
-.tag {
+.recipe-card-large .tag {
    font-size: 8pt;
    border-radius: 2px;
    background: green;
@@ -91,17 +94,17 @@ export default {
    color: #fff;
 }
 
-.photo {
+.recipe-card-large .photo {
    max-width:140px;
 }
-.photo .recipe-image {
+.recipe-card-large .photo .recipe-image {
    width: 100%;
 }
 
-.controls {
+.recipe-card-large .controls {
    width: 60px;
 }
-.control {
+.recipe-card-large .control {
    display: block;
    width: 100%;
    line-height: 60px;

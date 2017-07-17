@@ -14,12 +14,22 @@ const actions = {
       commit('addRecipe', {
          recipe: recipe
       })
+   }, 
+
+   removeRecipeFromList({ commit, state }, { recipeIndex }) {
+      commit('removeRecipe', {
+         recipeIndex: recipeIndex
+      })
    }
 }
 
 const mutations = {
    addRecipe(state, { recipe }) {
       state.addedRecipes.push(recipe)
+   },
+
+   removeRecipe(state, { recipeIndex }) {
+      state.addedRecipes.splice(recipeIndex, 1)
    }
 }
 
