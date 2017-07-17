@@ -12,8 +12,33 @@ const getters = {
             list.push(ingredient)
          }, this)
       }, this);
-      
+
       return list.sort()
+   },
+
+   totalNutrients() {
+      var totalNutrients = {}
+      state.addedRecipes.forEach(function(recipe) {
+         var nutrients = recipe.totalNutrients
+
+         for(var n in nutrients) {
+            var nut = nutrients[n]
+            console.log(nut.label)
+
+            if(nut.label in totalNutrients) {
+               totalNutrients[nut.label].quantity += nut.quantity
+            }
+            else {
+               totalNutrients[nut.label] = {
+                  label: nut.label,
+                  quantity: nut.quantity,
+                  unit: nut.unit
+               }
+            }
+         }
+      })
+      console.log(totalNutrients)
+      return totalNutrients
    }
 }
 
