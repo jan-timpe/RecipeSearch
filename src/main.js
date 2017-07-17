@@ -5,11 +5,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 import 'bulma/css/bulma.css'
-import VueLocalStorage from 'vue-localstorage'
 
 Vue.config.productionTip = false
-
-Vue.use(VueLocalStorage)
 
 /* eslint-disable no-new */
 new Vue({

@@ -71,6 +71,12 @@ export default {
    name: 'RecipeCardLarge',
    props: ['recipe'],
 
+   localStorage: {
+      recipes: {
+         type: Object
+      }
+   },
+
    methods: {
       saveRecipe() {
          this.$store.dispatch('addRecipeToList', {

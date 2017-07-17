@@ -64,10 +64,14 @@ const actions = {
 const mutations = {
    addRecipe(state, { recipe }) {
       state.addedRecipes.push(recipe)
+      console.log(state.addedRecipes)
+      window.localStorage.setItem('recipes', JSON.stringify(state.addedRecipes))
    },
 
    removeRecipe(state, { recipeIndex }) {
       state.addedRecipes.splice(recipeIndex, 1)
+      console.log(state.addedRecipes)
+      window.localStorage.setItem('recipes', JSON.stringify(state.addedRecipes))
    },
 
    setRecipes(state, { recipeList }) {
