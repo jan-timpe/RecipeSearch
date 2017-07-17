@@ -5,7 +5,10 @@
             Home
          </router-link>
          <router-link to="/list" class="navbar-item">
-            Shopping List
+            Shopping list
+         </router-link>
+         <router-link to="/facts" class="navbar-item">
+            Nutrition facts
          </router-link>
       </div>
    </nav>
