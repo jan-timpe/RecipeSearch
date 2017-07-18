@@ -27,7 +27,7 @@ export default {
          onSuccess(response.data)
       })
       .catch(error => {
-         onError(error)
+         onFailure(error)
       })
    }
 }

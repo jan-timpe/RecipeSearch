@@ -103,6 +103,25 @@
 
                   </div>
 
+                  <nav class="pagination">
+
+                     <a class="pagination-previous" title="This is the first page" disabled>Previous</a>
+                     <a class="pagination-next">Next page</a>
+
+                     <ul class="pagination-list">
+                        <li>
+                           <a class="pagination-link is-current">1</a>
+                        </li>
+                        <li>
+                           <a class="pagination-link">2</a>
+                        </li>
+                        <li>
+                           <a class="pagination-link">3</a>
+                        </li>
+                     </ul>
+                     
+                  </nav>
+
                </div>
             </div>
          </div>
@@ -130,7 +149,8 @@ export default {
          searchTerm: '',
          healthLabel: '',
          dietLabel: '',
-         isLoading: false
+         isLoading: false,
+         isError: false
       }
    }, 
 
@@ -142,6 +162,7 @@ export default {
 
    methods: {
       searchRecipes(terms, healthLabel, dietLabel) {
+         this.recipes = []
          this.isLoading = true
 
          api.searchRecipes(terms, healthLabel, dietLabel, results => {
