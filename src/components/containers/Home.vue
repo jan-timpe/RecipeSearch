@@ -35,8 +35,42 @@
 
                <div class="column is-two-thirds">
 
-                  <form v-on:submit.prevent="searchRecipes(searchTerm)">
+                  <form v-on:submit.prevent="searchRecipes(searchTerm, healthLabel, dietLabel)">
                      <div class="field has-addons">
+                        <p class="control">
+                           <span class="select">
+                              <select v-model="dietLabel">
+                                 <option value="" disabled selected>Diet options</option>
+                                 <option value="balanced">balanced</option>
+                                 <option value="high-protein">high-protein</option>
+                                 <option value="high-fiber">high-fiber</option>
+                                 <option value="low-fat">low-fat</option>
+                                 <option value="low-carb">low-carb</option>
+                                 <option value="low-sodium">low-sodium</option>
+                              </select>
+                           </span>
+                        </p>
+                        <p class="control">
+                           <span class="select">
+                              <select v-model="healthLabel">
+                                 <option value="" disabled selected>Health options</option>
+                                 <option value="vegan">vegan</option>
+                                 <option value="vegetarian">vegetarian</option>
+                                 <option value="paleo">paleo</option>
+                                 <option value="dairy-free">dairy-free</option>
+                                 <option value="gluten-free">gluten-free</option>
+                                 <option value="wheat-free">wheat-free</option>
+                                 <option value="fat-free">fat-free</option>
+                                 <option value="low-sugar">low-sugar</option>
+                                 <option value="egg-free">egg-free</option>
+                                 <option value="peanut-free">peanut-free</option>
+                                 <option value="nut-free">tree-nut-free</option>
+                                 <option value="soy-free">soy-free</option>
+                                 <option value="fish-free">fish-free</option>
+                                 <option value="shellfish-free">shellfish-free</option>
+                              </select>
+                           </span>
+                        </p>
                         <p class="control">
                            <input class="input" 
                               type="text" 
@@ -45,7 +79,7 @@
                            >
                         </p>
                         <p class="control">
-                           <input type="submit" class="button is-info" value="Search">
+                           <input type="submit" class="button is-primary" value="Search">
                         </p>
                      </div>
                   </form>
@@ -68,6 +102,25 @@
                      </recipe-card-large>
 
                   </div>
+
+                  <nav class="pagination">
+
+                     <a class="pagination-previous" title="This is the first page" disabled>Previous</a>
+                     <a class="pagination-next">Next page</a>
+
+                     <ul class="pagination-list">
+                        <li>
+                           <a class="pagination-link is-current">1</a>
+                        </li>
+                        <li>
+                           <a class="pagination-link">2</a>
+                        </li>
+                        <li>
+                           <a class="pagination-link">3</a>
+                        </li>
+                     </ul>
+                     
+                  </nav>
 
                </div>
             </div>
@@ -94,7 +147,10 @@ export default {
       return {
          recipes: [],
          searchTerm: '',
-         isLoading: false
+         healthLabel: '',
+         dietLabel: '',
+         isLoading: false,
+         isError: false
       }
    }, 
 
@@ -105,10 +161,11 @@ export default {
    },
 
    methods: {
-      searchRecipes(terms) {
+      searchRecipes(terms, healthLabel, dietLabel) {
+         this.recipes = []
          this.isLoading = true
 
-         api.searchRecipes(terms, results => {
+         api.searchRecipes(terms, healthLabel, dietLabel, results => {
             this.recipes = results.hits
             this.isLoading = false
          },

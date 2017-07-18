@@ -11,13 +11,23 @@ export const HTTP = axios.create({
 })
 
 export default {
-   searchRecipes(query, onSuccess, onFailure) {
-      HTTP.get('/search?q='+query)
+   searchRecipes(query, healthLabel, dietLabel, onSuccess, onFailure) {
+      var resource = '/search?q='+query
+
+      if(healthLabel.length > 0) {
+         resource = resource.concat('&health='+healthLabel)
+      }
+
+      if(dietLabel.length > 0) {
+         resource = resource.concat('&diet='+dietLabel)
+      }
+
+      HTTP.get(resource)
       .then(response => {
          onSuccess(response.data)
       })
       .catch(error => {
-         onError(error)
+         onFailure(error)
       })
    }
 }
