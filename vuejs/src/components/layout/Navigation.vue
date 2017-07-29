@@ -1,5 +1,5 @@
 <template>
-   <nav id="navbar" class="navbar">
+   <nav id="navigation" class="navbar">
       <div class="navbar-brand">
          <router-link to="/" class="navbar-item">
             Home
@@ -16,6 +16,6 @@
 
 <script>
 export default {
-   name: 'navigation'
+   name: 'Navigation'
 }
 </script>

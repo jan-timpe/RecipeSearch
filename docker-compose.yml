@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  vuejs-frontend:
+    build: ./vuejs
+    volumes:
+      - ./vuejs/dist:/opt/app/dist
+
+  nginx-webserver:
+    build: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./vuejs/dist:/usr/share/nginx/html/
