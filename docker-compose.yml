@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  nginx-webserver:
+    build: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./vuejs/dist:/usr/share/nginx/html/
