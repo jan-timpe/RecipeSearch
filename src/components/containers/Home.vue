@@ -35,7 +35,7 @@
 
                <div class="column is-two-thirds">
 
-                  <form v-on:submit.prevent="searchRecipes(searchTerm, healthLabel, dietLabel)">
+                  <form v-on:submit.prevent="searchRecipes(searchTerm, healthLabel, dietLabel, currentPage)">
                      <div class="field has-addons">
                         <p class="control">
                            <span class="select">
@@ -103,23 +103,31 @@
 
                   </div>
 
+                  <br/>
+
                   <nav class="pagination">
 
-                     <a class="pagination-previous" title="This is the first page" disabled>Previous</a>
-                     <a class="pagination-next">Next page</a>
+                     <a class="pagination-previous" 
+                        v-bind:disabled="!hasPrevPage"
+                        @click="prevPage()"
+                     >
+                        Previous
+                     </a>
+                     <a class="pagination-next" 
+                        v-bind:disabled="!hasNextPage"
+                        @click="nextPage()"
+                     >
+                        Next page
+                     </a>
 
                      <ul class="pagination-list">
-                        <li>
-                           <a class="pagination-link is-current">1</a>
-                        </li>
-                        <li>
-                           <a class="pagination-link">2</a>
-                        </li>
-                        <li>
-                           <a class="pagination-link">3</a>
-                        </li>
+                        <li v-for="pageNum in pageControlsShown" :key="pageNum">
+                           <a v-bind:class="{ 'pagination-link': pageNum !== '&hellip;', 'pagination-ellipsis': pageNum === '&hellip;', 'is-current': pageNum === currentPage+1 }"
+                              v-html="pageNum"
+                              @click="goToPage(pageNum-1)"
+                           ></a>
+                        </li>   
                      </ul>
-                     
                   </nav>
 
                </div>
@@ -150,29 +158,90 @@ export default {
          healthLabel: '',
          dietLabel: '',
          isLoading: false,
-         isError: false
+         isError: false,
+         currentPage: 0,
+         maxPages: 0
       }
    }, 
 
    computed: {
       ...mapGetters({
          addedRecipes: 'addedRecipes'
-      })
+      }), 
+
+      hasNextPage() {
+         return this.currentPage < this.maxPages
+      },
+
+      hasPrevPage() {
+         return this.currentPage > 0
+      },
+
+      pageControlsShown() {
+         if(this.maxPages == 0) {
+            return []
+         }
+
+         if(this.maxPages < 5) {
+            return [1, 2, 3, 4, 5]
+         }
+
+         if(this.currentPage < 5) {
+            return [1, 2, 3, 4, '&hellip;', this.maxPages]
+         }
+
+         if(this.currentPage+1 < this.maxPages -1) {
+            return [1, '&hellip;', this.currentPage-1, this.currentPage, this.currentPage+1, '&hellip;', this.maxPages]
+         }
+
+         return [1, '&hellip;', this.maxPages-2, this.maxPages-1, this.maxPages]
+      }
    },
 
    methods: {
       searchRecipes(terms, healthLabel, dietLabel) {
+         let resultsPerPage = 10
+         let from = this.currentPage * resultsPerPage
+         let to = from + resultsPerPage
+
          this.recipes = []
          this.isLoading = true
+         this.maxPages = 0
 
-         api.searchRecipes(terms, healthLabel, dietLabel, results => {
+         api.searchRecipes(terms, healthLabel, dietLabel, from, to, results => {
             this.recipes = results.hits
+            this.maxPages = Math.ceil(results.count / resultsPerPage)
             this.isLoading = false
          },
          error => {
             console.log(error)
             this.isLoading = false
          })
+      },
+
+      nextPage() {
+         if(!this.hasNextPage) {
+            return 
+         }
+
+         this.currentPage += 1
+         this.searchRecipes(this.searchTerm, this.healthLabel, this.dietLabel)
+      }, 
+
+      prevPage() {
+         if(!this.hasPrevPage) {
+            return 
+         }
+
+         this.currentPage -= 1
+         this.searchRecipes(this.searchTerm, this.healthLabel, this.dietLabel)
+      },
+
+      goToPage(pageNum) {
+         if(pageNum > 0 && pageNum < this.maxPages) {
+            this.currentPage = pageNum
+            this.searchRecipes(this.searchTerm, this.healthLabel, this.dietLabel)
+         }
       }
    }
 }
