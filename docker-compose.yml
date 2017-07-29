@@ -6,4 +6,4 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./vuejs/dist:/usr/share/nginx/html/
+      - ./vuejs/dist:/var/www/html
