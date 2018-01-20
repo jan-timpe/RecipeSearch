@@ -1,6 +1,6 @@
 # recipesearch
 
-> A Vue.js project
+An [edamam.com](http://api.edamam.com) API client for searching and saving recipes. Built with VueJS. Utilizes local storage to save lists of recipes in the browser.
 
 ## Build Setup
 
