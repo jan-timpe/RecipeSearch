@@ -2,7 +2,7 @@ import axios from 'axios'
 
 # grab these from api.edamam.com
 # this repo used to be private, so some tokens were stored here (big oopsie)
-# tokens are no longer active (and besides, they were rate limited to 5 req/min and didn't charge me for any services)
+# tokens are no longer active (and besides, they were rate limited to 5 req/min and didnt charge me for any services)
 export const HTTP = axios.create({
    baseURL: 'https://api.edamam.com',
    params: {
