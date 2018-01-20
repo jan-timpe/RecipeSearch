@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-# grab these from api.edamam.com
-# this repo used to be private, so some tokens were stored here (big oopsie)
-# tokens are no longer active (and besides, they were rate limited to 5 req/min and didnt charge me for any services)
+/* grab these from api.edamam.com
+this repo used to be private, so some tokens were stored here (big oopsie)
+tokens are no longer active (and besides, they were rate limited to 5 req/min and didnt charge me for any services) */
 export const HTTP = axios.create({
    baseURL: 'https://api.edamam.com',
    params: {
-      app_id: '',
-      app_key: ''
+      app_id: 'e8149f6c',
+      app_key: '8237364c4dc4573c8a7da14f8f1e10c0'
    }
 })
 
