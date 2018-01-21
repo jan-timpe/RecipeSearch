@@ -2,7 +2,9 @@
 
 An [edamam.com](http://api.edamam.com) API client for searching and saving recipes. Built with VueJS. Utilizes local storage to save lists of recipes in the browser.
 
-## Build Setup
+## Run
+
+Visit [api.edamam.com](http://api.edamam.com) to generate some API keys for your environment. Place these in `src/api/recipes.js`, then continue. 
 
 ``` bash
 # install dependencies
